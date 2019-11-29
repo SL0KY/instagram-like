@@ -16,3 +16,6 @@ class PhotoCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("list_photos")
     success_message = "%(title)s à été ajoutée avec succès"
 
+    def get_initial(self):
+        return {"user" : self.request.user}
+

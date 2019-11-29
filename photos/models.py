@@ -19,6 +19,7 @@ class Photo(models.Model):
     published_date = models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=10, choices=STATUSES)
     content = models.ImageField(upload_to="user_photos/")
+    counter_views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
