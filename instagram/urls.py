@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from photos import views as photo_views
 
 urlpatterns = [
+    path("", photo_views.index),
     path('admin/', admin.site.urls),
-    path('photos/', photo_views.index),
+    path('photos/', photo_views.index, name="list_photos"),
+    path("photos/create", photo_views.PhotoCreateView.as_view(), name='create_photo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
