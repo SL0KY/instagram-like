@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('photos/', photo_views.index, name="list_photos"),
     path("photos/create", photo_views.PhotoCreateView.as_view(), name='create_photo'),
+    path("photos/like", photo_views.PhotoLikeView.as_view(), name="like_photo"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

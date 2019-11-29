@@ -23,3 +23,8 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+
+class PhotoLikes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    like_date = models.DateTimeField(auto_now_add=True)
