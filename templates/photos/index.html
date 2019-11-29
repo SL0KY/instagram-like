@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'photos/style.css' %}">
+</head>
+<body>
+  Intagram
+
+  <ul>
+  {% for photo in photo_list %}
+    <li>{{ photo }} <img src="{{ photo.content.url }}" alt="" width="200"> </li>
+    <ul>
+      <li>{{ photo.description }}</li>
+      <li>{{ photo.published_date }}</li>
+      <li>{{ photo.user }}</li>
+    </ul>
+  {% endfor %}
+  </ul>
+</body>
+</html>
