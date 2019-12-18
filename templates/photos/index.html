@@ -1,66 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Instagram</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'photos/style.css' %}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://kit.fontawesome.com/751a5ef03f.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <div class="container">
+{% extends "base.html" %}
+
+{% block content %}
+ 
+
     <div class="row">
-      <div class="col-12">
-          <h1 class="text-center">Instagram</h1>
-      </div>
       <div class="col-12">
         <a style="margin-bottom: 20px;" class="btn btn-primary" href="{% url "create_photo" %}" />Ajouter une photo</a>
       </div>
-    </div>
-
-    {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Well done!</h4>
-        {{ message }}
-        <hr>
-        <p class="mb-0">Votre publication sera validée sous peu.</p>
-        <button type="button" class="close" data-dismiss="success" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-    {% endif %}
-
-    <div class="row">
       {% for photo in photo_list %}
-        <div class="col-4">
-          <div class="card" style="width: 100%%; margin-bottom: 20px;">
-            <div class="card-header">
-              <span style="float:left">{{ photo.user }}</span><span style="float:right">{{ photo.published_date }}</span>
-            </div>
-            <img src="{{ photo.content.url }}" alt="" style="width:100%;margin: auto">
-            <div class="card-body">
-              <h5 class="card-title" style="height: 20px">
-                <form action="{% url "like_photo" %}" method="POST">
-                  {% csrf_token %}
-                  <input name="photo_id" type="hidden" value="{{ photo.id }}" />
-                  {% if photo.is_liked %}
-                    <span><i class="fas fa-heart"></i></span>
-                    <input type="submit" value="unlike" />
-                  {% else %}
-                    <span><i class="far fa-heart"></i></span> 
-                    <input type="submit" value="like" />
-                  {% endif %}
-                </form>
-                </h5>
-              <p class="card-text">{{ photo.description }}</p>
-            </div>
-          </div>
-        </div>
+        {% include "photos/photo.html" with photo=photo %}
       {% endfor %}
     </div>
   </div>
-</body>
-</html>
+  {% endblock %}

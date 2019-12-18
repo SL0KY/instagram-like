@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'photos',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -123,3 +125,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = "{}/user_content".format(BASE_DIR)
 
 MEDIA_URL = "/user_photos/"
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]

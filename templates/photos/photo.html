@@ -1,0 +1,28 @@
+<div class="col-4">
+    <a style="text-decoration: none; color: unset;" href="{% url "detail_photo" pk=photo.pk %}">
+        <div class="card" style="width: 100%%; margin-bottom: 20px;">
+            <div class="card-header">
+                <span style="float:left">{{ photo.user }}</span><span style="float:right">{{ photo.published_date }}</span>
+            </div>
+            <img src="{{ photo.content.url }}" alt="" style="width:100%;margin: auto">
+            <div class="card-body">
+                <h5 class="card-title" style="height: 20px">
+                {% if user.is_authenticated %}
+                    <form action="{% url "like_photo" %}" method="POST">
+                    {% csrf_token %}
+                    <input name="photo_id" type="hidden" value="{{ photo.id }}" />
+                    {% if photo.likes_count or liked %}
+                        <button style="border:none; background: unset;">{{ photo.likes_count }} <i class="fas fa-heart"></i></button>
+                        <input type="hidden" value="unlike"/>
+                    {% else %}
+                        <button style="border:none; background: unset;">{{ photo.likes_count }} <i class="far fa-heart"></i></button> 
+                        <input type="hidden" value="like" />
+                    {% endif %}
+                    </form>
+                {% endif %}
+                </h5>
+                <p class="card-text">{{ photo.description }}</p>
+            </div>
+        </div>
+    </a>
+</div>

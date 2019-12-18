@@ -15,15 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path
+from django.urls import include, path
 from django.conf.urls.static import static
 
 from photos import views as photo_views
 
 urlpatterns = [
     path("", photo_views.index),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('photos/', photo_views.index, name="list_photos"),
     path("photos/create", photo_views.PhotoCreateView.as_view(), name='create_photo'),
     path("photos/like", photo_views.PhotoLikeView.as_view(), name="like_photo"),
+    path("photos/<int:pk>", photo_views.PhotoDetailView.as_view(), name="detail_photo"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
