@@ -18,9 +18,17 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 
+from rest_framework import routers
+
+from photos.api import views as photo_api_views
 from photos import views as photo_views
 
+router = routers.DefaultRouter()
+router.register(r'photos', photo_api_views.PhotoViewSet)
+
 urlpatterns = [
+    path('api/v1', include(router.urls)),
+    path('^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("", photo_views.index),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
